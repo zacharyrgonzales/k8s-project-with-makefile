@@ -65,5 +65,18 @@ deploy_website:
 	$(MAKE) generate_k8s_service && \
 	$(MAKE) generate_nginx_ingress && \
 	$(MAKE) generate_k8s_ingress
+
+show_helm_chart:
+	helm show all ./chart
+
+generate_helm_chart:
+	helm template ./chart
+
+delete_website:
+	kubectl delete all -l app=explorecalifornia.com
+
+install_app:
+	helm upgrade --atomic --install -i explore-california-website ./chart
+	helm install explore-california-website ./chart
 	
 
